@@ -1,0 +1,130 @@
+<!-- 
+-----------------------
+IDENTIFICAÇÃO DA EQUIPE
+-----------------------
+Turma: 01
+1. Nicolas Santos
+2. Paulo Henrique dos Santos Reis
+3. Ricacio Souza de Jesus
+4. Vinicius Cunha dos Santos
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trabalho 1 - PF 2022.1</title>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+  </head>
+
+  <body>
+    <h1>COMP0393 - PROGRAMAÇÃO FUNCIONAL</h1>
+    <h2>TRABALHO 1 - Texto codificado</h2>
+    <!-- ALTERAR NÚMERO DA TURMA -->
+    <h3>Turma 01</h3>
+    <h3>Equipe</h3>
+    <ol>
+      <!-- ALTERAR NOMES DOS INTEGRANTES DA EQUIPE -->
+      <li>Nicolas Santos</li>
+      <li>Paulo Henrique dos Santos Reis</li>
+      <li>Ricacio Souza de Jesus</li>
+      <li>Vinicius Cunha dos Santos</li>
+    </ol>
+    <hr />
+    <h2>Leitura do arquivo original</h2>
+    <input
+      type="file"
+      name="inputfile"
+      id="inputfile"
+      onchange="processa(this)"
+    />
+    <br />
+
+    <h2>Texto codificado</h2>
+    <pre id="output"></pre>
+
+    <script type="text/javascript">
+      const processa = (elem) => {
+        const fr = new FileReader();
+        fr.readAsText(elem.files[0]);
+        fr.onload = () => codifica(fr.result);
+      };
+      const codifica = (texto) => {
+        // comando para utilizar as funções criadas para a codificação
+        const codificando = composicao(
+          inverteOrdem,
+          trocandoUmCaracter,
+          trocandoOutroCaracter,
+          trocandoLetraN,
+          trocandoLetraA,
+          trocandoEspacos,
+          trocarndoLetraR,
+          trocandoLetraS,
+          trocandoLetraL,
+          trocandoLetraE,
+          trocandoVirgula,
+          inverteTexto
+        );
+
+        const resultado = codificando(texto); //você deve substituir 'texto' pelo resultado do seu processamento
+        document.getElementById("output").textContent = resultado;
+      };
+
+      // comando para dividir e inverter a ordem do Texto
+      const inverteOrdem = (txt) =>
+        txt.split(" ").reverse().join(" ").toString();
+
+      // comando para inverter o texto
+      const inverteTexto = (txt) => txt.split("").reverse().join("").toString();
+
+      // conjunto de comandos que mudam uma letra ou simbolo por outra
+      const trocandoUmCaracter = (txt) => txt.replace(/&/g, "--");
+      const trocandoOutroCaracter = (txt) => txt.replace(/%/g, "---");
+      const trocandoLetraN = (txt) => txt.replace(/n/g, "&");
+      const trocandoLetraA = (txt) => txt.replace(/a/g, "n");
+      const trocandoEspacos = (txt) => txt.replace(/ /g, "a");
+      const trocarndoLetraR = (txt) => txt.replace(/r/g, "%");
+      const trocandoLetraS = (txt) => txt.replace(/s/g, " ");
+      const trocandoLetraL = (txt) => txt.replace(/l/g, "r");
+      const trocandoLetraE = (txt) => txt.replace(/e/g, "l");
+      const trocandoVirgula = (txt) => txt.replace(/,/g, "e");
+
+      // conjunto de comandos que retornam as letra e simbolos para o que eram antes
+      const revertendoUmCaracter = (txt) => txt.replace(/--/g, "&");
+      const revertendoOutroCaracter = (txt) => txt.replace(/---/g, "%");
+      const revertendoLetraN = (txt) => txt.replace(/&/g, "n");
+      const revertendoLetraA = (txt) => txt.replace(/n/g, "a");
+      const revertendoEspacos = (txt) => txt.replace(/a/g, " ");
+      const revertendoLetraR = (txt) => txt.replace(/%/g, "r");
+      const revertendoLetraS = (txt) => txt.replace(/ /g, "s");
+      const revertendoLetraL = (txt) => txt.replace(/r/g, "l");
+      const revertendoLetraE = (txt) => txt.replace(/l/g, "e");
+      const revertendoVirgula = (txt) => txt.replace(/e/g, ",");
+
+      // Composição das Funções
+      const composicao =
+        (...fns) =>
+        (valor) =>
+          fns.reduce((acc, fn) => fn(acc), valor);
+
+      const decodifica = (textocodificado) => {
+        // comando para utilizar as funções criadas para a descodificação
+        const descodificando = composicao(
+          inverteTexto,
+          revertendoVirgula,
+          revertendoLetraE,
+          revertendoLetraL,
+          revertendoLetraS,
+          revertendoLetraR,
+          revertendoEspacos,
+          revertendoLetraA,
+          revertendoLetraN,
+          revertendoOutroCaracter,
+          revertendoUmCaracter,
+          inverteOrdem
+        );
+
+        const resultado = descodificando(textocodificado); //você deve substituir 'textocodificado' pelo resultado do seu processamento
+      };
+    </script>
+  </body>
+</html>
